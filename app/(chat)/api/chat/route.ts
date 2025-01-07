@@ -1,4 +1,20 @@
-import { convertToCoreMessages, Message, streamText } from "ai";
+
+import { google } from '@ai-sdk/google';
+import { TaskType, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
+import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
+import { Document } from "@langchain/core/documents";
+import {
+  BytesOutputParser,
+  StringOutputParser,
+} from "@langchain/core/output_parsers";
+import { PromptTemplate } from "@langchain/core/prompts";
+import { RunnableSequence } from "@langchain/core/runnables";
+//import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
+import { ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
+import { createClient } from "@supabase/supabase-js";
+import { convertToCoreMessages, Message, streamText, generateText } from "ai";
+import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { geminiProModel } from "@/ai";
@@ -18,7 +34,334 @@ import {
 } from "@/db/queries";
 import { generateUUID } from "@/lib/utils";
 
-export async function POST(request: Request) {
+export const runtime = "edge";
+
+
+// Helper functions for document and message formatting
+const combineDocumentsFn = (docs: Document[]) => {
+  const serializedDocs = docs.map((doc) => doc.pageContent);
+  return serializedDocs.join("\n\n");
+};
+
+const formatVercelMessages = (chatHistory: VercelChatMessage[]) => {
+  const formattedDialogueTurns = chatHistory.map((message) => {
+    if (message.role === "user") {
+      return `Human: ${message.content}`;
+    } else if (message.role === "assistant") {
+      return `Assistant: ${message.content}`;
+    } else {
+      return `${message.role}: ${message.content}`;
+    }
+  });
+  return formattedDialogueTurns.join("\n");
+};
+
+/*
+// Prompt templates
+const CONDENSE_QUESTION_TEMPLATE = `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question, in its original language.
+
+<chat_history>
+  {chat_history}
+</chat_history>
+
+Follow Up Input: {question}
+Standalone question:`;
+
+const ANSWER_TEMPLATE = `You are a helpful Crustdata API support assistant. You help users understand and use Crustdata's APIs effectively and concisely.
+
+When providing code examples:
+1. Always use correct API endpoints and parameters
+2. Include proper error handling suggestions
+3. Explain key parameters clearly
+4. If showing a curl example, also show how to handle the response
+
+Answer the question based only on the following context and chat history:
+<context>
+  {context}
+</context>
+
+<chat_history>
+  {chat_history}
+</chat_history>
+
+Question: {question}
+
+If the response includes an API call, ensure the syntax is correct and all required parameters are included.
+If the user is asking about API errors, provide common troubleshooting steps.`;
+
+const condenseQuestionPrompt = PromptTemplate.fromTemplate(CONDENSE_QUESTION_TEMPLATE);
+const answerPrompt = PromptTemplate.fromTemplate(ANSWER_TEMPLATE);
+
+// API validation schema for Crustdata API calls
+const CrustdataAPISchema = z.object({
+  filters: z.array(
+    z.object({
+      filter_type: z.string(),
+      type: z.string(),
+      value: z.array(z.string())
+    })
+  ),
+  page: z.number().optional()
+});
+*/
+
+// Main handler function
+
+export async function POST(req: NextRequest) {
+  console.log("POST Request received");
+  try {
+    //const body = await req.json();
+    const { id, messages }: { id: string; messages: Array<Message> } = await req.json();
+    //const messages = body.messages ?? [];
+    const previousMessages = messages.slice(0, -1);
+    const currentMessageContent = messages[messages.length - 1].content;
+
+    const session = await auth();
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+    console.log("Session authenticated");
+
+    const coreMessages = convertToCoreMessages(messages).filter(
+      (message) => message.content.length > 0,
+    );
+
+    // First, condense the question using the chat history
+    const condenseResult = await generateText({
+      model: google('gemini-1.5-flash-8b'),
+      prompt: `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.
+
+      Chat History:
+      ${formatVercelMessages(previousMessages)}
+
+      Follow Up Question: ${currentMessageContent}
+
+      Standalone question:`,
+          });
+
+    // Get the condensed question
+    const condensedQuestion = condenseResult.text; //use this condensed question for embeddings search below
+
+    console.log("Condensed question: ", condensedQuestion);
+
+    // Initialize Supabase client
+    const client = createClient(
+      process.env.SUPABASE_URL!,
+      process.env.SUPABASE_PRIVATE_KEY!
+    );
+
+    // Initialize vector store
+    const vectorstore = new SupabaseVectorStore(
+      new GoogleGenerativeAIEmbeddings({
+        model: "text-embedding-004",
+        taskType: TaskType.RETRIEVAL_DOCUMENT,
+        title: "Document title",
+      }),
+      {
+        client,
+        tableName: "documents",
+        queryName: "match_documents",
+      }
+    );
+    console.log("Vector store initialized");
+
+    // Get relevant documents
+    const relevantDocs = await vectorstore.similaritySearch(condensedQuestion, 4);
+    const contextText = combineDocumentsFn(relevantDocs);
+    //const chatHistory = formatVercelMessages(previousMessages);
+
+    console.log("Relevant documents retrieved.");
+
+    // Use streamText with the retrieved context
+    const result = await streamText({ 
+      model: geminiProModel,
+      messages: convertToCoreMessages(messages), //message history plus current message
+      system: `You are a helpful Crustdata API support assistant. You help users understand and use Crustdata's APIs effectively and concisely.
+      
+      Use the following context to answer the user's question:
+
+      The Crustdata API gives you programmatic access to firmographic and growth metrics data for companies across the world from more than 16 datasets (Linkedin headcount, Glassdoor, Instagram, G2, Web Traffic, Apple App Store reviews, Google Play Store, News among others).
+      
+      ${contextText}
+      
+      When providing code examples:
+      1. Always use correct API endpoints and parameters
+      2. Include proper error handling suggestions
+      3. Explain key parameters clearly
+      4. If showing a curl example, also show how to handle the response
+      
+      If the response includes an API call, ensure the syntax is correct and all required parameters are included.
+      If the user is asking about API errors, provide common troubleshooting steps.`,
+      onFinish: async ({ responseMessages }) => {
+        if (session.user && session.user.id) {
+          try {
+            await saveChat({
+              id,
+              messages: [...coreMessages, ...responseMessages],
+              userId: session.user.id,
+            });
+          } catch (error) {
+            console.error("Failed to save chat");
+          }
+        }
+      },
+      experimental_telemetry: {
+        isEnabled: true,
+        functionId: "stream-text",
+      },
+    });
+    //console.log("Stream text result:", result);
+
+    // Add sources to the response headers
+    const serializedSources = Buffer.from(
+      JSON.stringify(
+        relevantDocs.map((doc) => ({
+          pageContent: doc.pageContent.slice(0, 50) + "...",
+          metadata: doc.metadata,
+        }))
+      )
+    ).toString("base64");
+
+    return result.toDataStreamResponse({
+      headers: {
+        "x-message-index": (previousMessages.length + 1).toString(),
+        "x-sources": serializedSources,
+      },
+    });
+  } catch (e: any) {
+    console.error("Error in POST handler:", e);
+    return NextResponse.json({ error: e.message }, { status: e.status ?? 500 });
+  }
+}
+
+
+export async function POST_more_recent_but_deprecated(req: NextRequest) {
+  console.log("POST Request received");
+  try {
+    const body = await req.json();
+    const messages = body.messages ?? [];
+    const previousMessages = messages.slice(0, -1);
+    const currentMessageContent = messages[messages.length - 1].content;
+    console.log("Current message content: ", currentMessageContent);
+
+    const model = new ChatGoogleGenerativeAI({
+      model: "gemini-1.0-pro",
+      maxOutputTokens: 2048,
+      safetySettings: [
+        {
+          category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+          threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+        },
+      ],
+    });
+    console.log("Model initialized");
+
+    // Initialize Supabase client for vector storage
+    const client = createClient(
+      process.env.SUPABASE_URL!,
+      process.env.SUPABASE_PRIVATE_KEY!,
+    );
+    console.log("Supabase client initialized");
+    
+    const vectorstore = new SupabaseVectorStore(new GoogleGenerativeAIEmbeddings({
+      model: "text-embedding-004", // 768 dimensions
+      taskType: TaskType.RETRIEVAL_DOCUMENT,
+      title: "Document title",
+    }), {
+      client,
+      tableName: "documents",
+      queryName: "match_documents",
+    });
+    console.log("Vector store initialized");
+
+    // Set up the retrieval chain
+    const standaloneQuestionChain = RunnableSequence.from([
+      condenseQuestionPrompt,
+      model,
+      new StringOutputParser(),
+    ]);
+    console.log("Standalone question chain initialized");
+
+    // Document promise for tracking retrieved documents
+    let resolveWithDocuments: (value: Document[]) => void;
+    const documentPromise = new Promise<Document[]>((resolve) => {
+      resolveWithDocuments = resolve;
+    });
+    console.log("Document promise initialized");
+
+    // Configure retriever with callbacks
+    const retriever = vectorstore.asRetriever({
+      callbacks: [
+        {
+          handleRetrieverEnd(documents) {
+            resolveWithDocuments(documents);
+          },
+        },
+      ],
+    });
+    console.log("Retriever configured");
+
+    const retrievalChain = retriever.pipe(combineDocumentsFn);
+
+    // Set up the answer chain
+    const answerChain = RunnableSequence.from([
+      {
+        context: RunnableSequence.from([
+          (input) => input.question,
+          retrievalChain,
+        ]),
+        chat_history: (input) => input.chat_history,
+        question: (input) => input.question,
+      },
+      answerPrompt,
+      model,
+    ]);
+    console.log("Answer chain initialized");
+
+    // Combine the chains
+    const conversationalRetrievalQAChain = RunnableSequence.from([
+      {
+        question: standaloneQuestionChain,
+        chat_history: (input) => input.chat_history,
+      },
+      answerChain,
+      new BytesOutputParser(),
+    ]);
+    console.log("Conversational retrieval QA chain initialized");
+
+    // Stream the response
+    const stream = await conversationalRetrievalQAChain.stream({
+      question: currentMessageContent,
+      chat_history: formatVercelMessages(previousMessages),
+    });
+    console.log("Response streaming started");
+
+    // Handle document sources
+    const documents = await documentPromise;
+    const serializedSources = Buffer.from(
+      JSON.stringify(
+        documents.map((doc) => ({
+          pageContent: doc.pageContent.slice(0, 50) + "...",
+          metadata: doc.metadata,
+        })),
+      ),
+    ).toString("base64");
+    console.log("Document sources serialized");
+
+    return new StreamingTextResponse(stream, {
+      headers: {
+        "x-message-index": (previousMessages.length + 1).toString(),
+        "x-sources": serializedSources,
+      },
+    });
+  } catch (e: any) {
+    console.log(`error: ${e}`);
+    return NextResponse.json({ error: e.message }, { status: e.status ?? 500 });
+  }
+}
+
+export async function POST_deprecated(request: Request) {
   const { id, messages }: { id: string; messages: Array<Message> } =
     await request.json();
 

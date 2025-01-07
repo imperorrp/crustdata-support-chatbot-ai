@@ -1,19 +1,24 @@
 <a href="https://chat.vercel.ai/">
   <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
-  <h1 align="center">Next.js Gemini Chatbot</h1>
+  <h1 align="center">Next.js Gemini Chatbot with RAG for Crustdata API</h1>
 </a>
 
 <p align="center">
-  An Open-Source AI Chatbot Template Built With Next.js and the AI SDK by Vercel.
+  Built on top of an Open-Source AI Chatbot Template Built With Next.js and the AI SDK by Vercel- https://github.com/vercel-labs/gemini-chatbot/tree/main 
 </p>
 
 <p align="center">
+  <a href="#about"><strong>About</strong></a>
   <a href="#features"><strong>Features</strong></a> ·
   <a href="#model-providers"><strong>Model Providers</strong></a> ·
   <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
   <a href="#running-locally"><strong>Running locally</strong></a>
 </p>
 <br/>
+
+## About 
+
+This is a webapp built for the Crustdata Build challenge (https://www.linkedin.com/feed/update/urn:li:activity:7281490942816071680/). Currently the webapp is built for level 0 of the challenge. It's built on a template and with a RAG system on the Crustdata API docs for contextful questions. Free tier Google models are used both for the chat AI model client as well as for embeddings generation. Supabase is used as the Vector store for the Crustdata API doc embeddings. 
 
 ## Features
 

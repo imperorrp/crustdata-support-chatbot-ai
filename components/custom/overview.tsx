@@ -20,26 +20,26 @@ export const Overview = () => {
           <MessageIcon />
         </p>
         <p>
-          This is an open source Chatbot template powered by the Google Gemini
-          model built with Next.js and the AI SDK by Vercel. It uses the{" "}
-          <code className="rounded-sm bg-muted-foreground/15 px-1.5 py-0.5">
-            streamText
-          </code>{" "}
-          function in the server and the{" "}
-          <code className="rounded-sm bg-muted-foreground/15 px-1.5 py-0.5">
-            useChat
-          </code>{" "}
-          hook on the client to create a seamless chat experience.
+          Welcome to Crustdata API Support Bot! Ask any questions about the Crustdata API below. This customer support bot is powered by the Google Gemini
+          model and knowledge of the official Crustdata API docs and examples. 
         </p>
         <p>
           {" "}
-          You can learn more about the AI SDK by visiting the{" "}
+          Click here to view the API{" "}
           <Link
             className="text-blue-500 dark:text-blue-400"
-            href="https://sdk.vercel.ai/docs"
+            href="https://crustdata.notion.site/Crustdata-Discovery-And-Enrichment-API-c66d5236e8ea40df8af114f6d447ab48#3315bbdfa0054a2aa440e98bdec3ff90"
             target="_blank"
           >
-            Docs
+            docs 
+          </Link>
+          {" "}and{" "} 
+          <Link
+            className="text-blue-500 dark:text-blue-400"
+            href="https://crustdata.notion.site/Crustdata-Dataset-API-Detailed-Examples-b83bd0f1ec09452bb0c2cac811bba88c"
+            target="_blank"
+          >
+            examples
           </Link>
           .
         </p>

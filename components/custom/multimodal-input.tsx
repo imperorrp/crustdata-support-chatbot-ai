@@ -21,14 +21,9 @@ import { Textarea } from "../ui/textarea";
 
 const suggestedActions = [
   {
-    title: "Help me book a flight",
-    label: "from San Francisco to London",
-    action: "Help me book a flight from San Francisco to London",
-  },
-  {
-    title: "What is the status",
-    label: "of flight BA142 flying tmrw?",
-    action: "What is the status of flight BA142 flying tmrw?",
+    title: "How do I search for people",
+    label: "given their current title, current company and location?",
+    action: "How do I search for people given their current title, current company and location?",
   },
 ];
 

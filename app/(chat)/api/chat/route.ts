@@ -185,14 +185,65 @@ export async function POST(req: NextRequest) {
       
       ${contextText}
       
+      Follow the pattern of answers provided to these sample questions:
+      
+      Sample 1. 
+      Q: “How do I search for people given their current title, current company and location?”
+      A: "You can use api.crustdata.com/screener/person/search endpoint. Here is an example curl 
+      request to find “people with title engineer at OpenAI in San Francisco”: 
+      curl --location 'https://api.crustdata.com/screener/person/search' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Token $token \
+        --data '{
+            "filters": [
+                {
+                    "filter_type": "CURRENT_COMPANY",
+                    "type": "in",
+                    "value": [
+                        "openai.com"
+                    ]
+                },
+                {
+                    "filter_type": "CURRENT_TITLE",
+                    "type": "in",
+                    "value": [
+                        "engineer"
+                    ]
+                },
+                {    "filter_type": "REGION",
+                    "type": "in",
+                    "value": [
+                        "San Francisco, California, United States"
+                    ]
+                }        
+            ],
+            "page": 1
+        }' 
+      " 
+
+      Sample 2. 
+      Q: " I tried using the screener/person/search API to compare against previous values this weekend. I am blocked on the filter values. It seems like there's a strict set of values for something like a region. Because of that if I pass in something that doesn't fully conform to the list of enums you support for that filter value, the API call fails. The location fields for us are not normalized so I can't make the calls.
+      I tried search/enrichment by email but for many entities we have @gmails rather than business emails. Results are not the best.
+
+
+      Is there a standard you're using for the region values? I get this wall of text back when I don't submit a proper region value but it's hard for me to know at a glance how I should format my input
+      {
+        "non_field_errors": [
+            "No mapping found for REGION: San Francisco. Correct values are ['Aruba', 'Afghanistan', 'Angola', 'Anguilla', 'Åland Islands', 'Albania', 'Andorra', 'United States', 'United Kingdom', 'United Arab Emirates', 'United States Minor Outlying Islands', 'Argentina', 'Armenia', 'American Samoa', 'US Virgin Islands', 'Antarctica', 'French Polynesia', 'French Guiana', 'French Southern and Antarctic Lands', 'Antigua and Barbuda', 'Australia', 'Austria', 'Azerbaijan', 'Burundi', 'Belgium', 'Benin', 'Burkina Faso', 'Bangladesh', 'Bulgaria', 'Bahrain', 'The Bahamas', 'Bosnia and Herzegovina', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Saint Kitts and Nevis', 'Saint Helena, Ascension and Tristan da
+      …
+      "
+      A: "Yes there is specific list of regions listed here https://crustdata-docs-region-json.s3.us-east-2.amazonaws.com/updated_regions.json . Is there a way you can find the region from this list first and then put the exact values in the search?"
+      
       When providing code examples:
       1. Always use correct API endpoints and parameters
       2. Include proper error handling suggestions
       3. Explain key parameters clearly
-      4. If showing a curl example, also show how to handle the response
       
       If the response includes an API call, ensure the syntax is correct and all required parameters are included.
-      If the user is asking about API errors, provide common troubleshooting steps.`,
+      If the user is asking about API errors, provide common troubleshooting steps.
+      Keep your responses brief and concise. 
+      If you need more information from the user to solve their problem, ask them a relevant follow-up question.
+      `,
       onFinish: async ({ responseMessages }) => {
         if (session.user && session.user.id) {
           try {

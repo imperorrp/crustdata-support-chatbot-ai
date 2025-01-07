@@ -235,7 +235,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-
+/*
 export async function POST_more_recent_but_deprecated(req: NextRequest) {
   console.log("POST Request received");
   try {
@@ -578,6 +578,7 @@ export async function POST_deprecated(request: Request) {
 
   return result.toDataStreamResponse({});
 }
+*/
 
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url);

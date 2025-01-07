@@ -6,7 +6,7 @@ import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/vercel-postgres";
 //import postgres from "postgres";
 import { sql } from '@vercel/postgres';
-import type { Sql } from 'drizzle-orm';
+//import type { Sql } from 'drizzle-orm';
 
 import { user, chat, User, reservation } from "./schema";
 
@@ -16,7 +16,7 @@ import { user, chat, User, reservation } from "./schema";
 //let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
 //let db = drizzle(client);
 
-const db: Sql = drizzle(sql);
+const db = drizzle(sql);
 
 export async function getUser(email: string): Promise<Array<User>> {
   try {

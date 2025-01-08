@@ -1,7 +1,9 @@
-<a href="https://crustdata.com/">
-  <img align="center" alt="Crustdata (YC 24)" src="image.png">
-  <h1 align="center">Crustdata API Support Agent</h1>
-</a>
+<div align="center">
+  <a href="https://crustdata.com/">
+    <img alt="Crustdata (YC 24)" src="image.png">
+    <h1 align="center">Crustdata API Support Agent</h1>
+  </a>
+</div>
 
 <p align="center">
   Customer support chatbot that answers questions about the Crustdata API. Try it out at- https://crustdata-chatbot-ratish.vercel.app/

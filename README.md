@@ -9,8 +9,8 @@
 
 <p align="center">
   <a href="#about"><strong>About</strong></a> ·
-  <a href="#about"><strong>How to Use</strong></a> ·
-  <a href="#about"><strong>AI Usage and RAG</strong></a> ·
+  <a href="#how-to-use"><strong>How to Use</strong></a> ·
+  <a href="#ai-usage-and-rag"><strong>AI Usage and RAG</strong></a> ·
   <a href="#features"><strong>Features</strong></a> ·
   <a href="#model-providers"><strong>Model Providers</strong></a> ·
   <a href="#running-locally"><strong>Running locally</strong></a> ·

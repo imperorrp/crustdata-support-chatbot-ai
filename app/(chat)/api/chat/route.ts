@@ -176,7 +176,7 @@ export async function POST(req: NextRequest) {
     //const chatHistory = formatVercelMessages(previousMessages);
 
     console.log("Relevant documents retrieved.");
-    console.log(relevantDocs);
+    //console.log(relevantDocs);
 
     // Use streamText with the retrieved context
     const result = await streamText({ 
@@ -269,20 +269,10 @@ export async function POST(req: NextRequest) {
     });
     //console.log("Stream text result:", result);
 
-    // Add sources to the response headers
-    const serializedSources = Buffer.from(
-      JSON.stringify(
-        relevantDocs.map((doc) => ({
-          pageContent: doc.pageContent.slice(0, 50) + "...",
-          metadata: doc.metadata,
-        }))
-      )
-    ).toString("base64");
 
     return result.toDataStreamResponse({
       headers: {
         "x-message-index": (previousMessages.length + 1).toString(),
-        "x-sources": serializedSources,
       },
     });
   } catch (e: any) {

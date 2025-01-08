@@ -1,25 +1,27 @@
 <a href="https://crustdata.com/">
-  <img alt="Crustdata (YC 24)" src="image.png">
-  <h1 align="center">Crustdata API Support AI</h1>
+  <img align="center" alt="Crustdata (YC 24)" src="image.png">
+  <h1 align="center">Crustdata API Support Agent</h1>
 </a>
 
 <p align="center">
-  Built on top of an Open-Source AI Chatbot Template Built With Next.js and the AI SDK by Vercel- https://github.com/vercel-labs/gemini-chatbot/tree/main 
+  Customer support chatbot that answers questions about the Crustdata API. Try it out at- https://crustdata-chatbot-ratish.vercel.app/
 </p>
 
 <p align="center">
-  <a href="#about"><strong>About</strong></a>
-  <a href="#about"><strong>How to Use</strong></a>
-  <a href="#about"><strong>AI Usage Process and RAG Method</strong></a>
+  <a href="#about"><strong>About</strong></a> ·
+  <a href="#about"><strong>How to Use</strong></a> ·
+  <a href="#about"><strong>AI Usage and RAG</strong></a> ·
   <a href="#features"><strong>Features</strong></a> ·
   <a href="#model-providers"><strong>Model Providers</strong></a> ·
-  <a href="#running-locally"><strong>Running locally</strong></a>
+  <a href="#running-locally"><strong>Running locally</strong></a> ·
 </p>
 <br/>
 
 ## About 
 
 This is a webapp built for the Crustdata Build challenge (https://www.linkedin.com/feed/update/urn:li:activity:7281490942816071680/). Currently the webapp is built for level 0 of the challenge. It's built on a template and with a RAG system on the [Crustdata API docs](https://crustdata.notion.site/Crustdata-Discovery-And-Enrichment-API-c66d5236e8ea40df8af114f6d447ab48#53274edf0e9442d1a64091b213d689c2) for contextful questions. Free tier Google models are used both for the chat AI model client as well as for embeddings generation. Supabase is used as the Vector store for the Crustdata API doc embeddings. 
+
+Credits: This webapp is built on top of an official Open-Source AI Chatbot Template Built With Next.js and the AI SDK by Vercel- https://github.com/vercel-labs/gemini-chatbot/tree/main. 
 
 ## How to Use 
 
@@ -29,7 +31,7 @@ Then ask away about your Crustdata API questions. You may ask follow up question
 
 You can start a new chat, go to old saved chats or delete old chats by opening the sidebar. 
 
-## AI Usage Process and RAG Method
+## AI Usage and RAG
 
 Retrieval Augmented Generation (RAG) is used by this support AI. Crustdata API docs were chunked by endpoint (`chunks/`) into .txt files, and embeddings created on API endpoint overviews in `scripts/index_data.ts` (a standalone script executed only once to create the embeddings vector database for later RAG) and ingested into a Supabase vector database. 
 

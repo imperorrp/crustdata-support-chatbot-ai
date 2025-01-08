@@ -244,6 +244,7 @@ export async function POST(req: NextRequest) {
       2. Include proper error handling suggestions
       3. Explain key parameters clearly
       
+      Give the user a relevant example curl API call when they ask about how to look up something that involves a particular endpoint. 
       If the response includes an API call, ensure the syntax is correct and all required parameters are included.
       If the user is asking about API errors, provide common troubleshooting steps.
       Keep your responses brief and concise. 

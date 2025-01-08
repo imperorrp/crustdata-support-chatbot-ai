@@ -1,0 +1,428 @@
+- **CUrl**
+    
+    ```bash
+    curl --request POST \
+      --url http://api.crustdata.com/data_lab/g2_profile_metrics/Table/ \
+      --header 'Accept: application/json, text/plain, */*' \
+      --header 'Accept-Language: en-US,en;q=0.9' \
+      --header 'Authorization: Token $token' \
+      --header 'Content-Type: application/json' \
+      --header 'Origin: https://crustdata.com' \
+      --data '{
+        "tickers": [],
+        "dataset": {
+          "name": "g2_profile_metrics",
+          "id": "g2profilemetric"
+        },
+        "filters": {
+          "op": "or",
+          "conditions": [
+            {"column": "company_website_domain", "type": "=", "value": "microstrategy.com", "allow_null": false},
+    			  {"column": "company_website_domain", "type": "=", "value": "lacework.com", "allow_null": false},
+    				{"column": "company_website_domain", "type": "=", "value": "jumpcloud.com", "allow_null": false}
+          ]
+        },
+        "groups": [],
+        "aggregations": [],
+        "functions": [],
+        "offset": 0,
+        "count": 100,
+        "sorts": []
+      }'
+    
+    ```
+    
+- **Result**
+    
+    [JSON Hero](https://jsonhero.io/j/DUeuNGh42nyO/editor)
+    
+    ```bash
+    {
+      "fields": [
+        {
+          "type": "string",
+          "api_name": "linkedin_id",
+          "hidden": true,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_website",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_name",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_website_domain",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "date",
+          "api_name": "as_of_date",
+          "hidden": false,
+          "options": [
+            "-default_sort"
+          ],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "review_count",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "average_rating",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "g2_rating",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "dataset_row_id",
+          "hidden": true,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": null,
+          "company_profile_name": null,
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "title",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "slug",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "profile_url",
+          "hidden": false,
+          "options": [
+            "url"
+          ],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "vendor_name",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "description",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "type",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "company_id",
+          "hidden": true,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": null,
+          "company_profile_name": null,
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "total_rows",
+          "hidden": true,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        }
+      ],
+      "rows": [
+        [
+          "3643",
+          "http://www.microstrategy.com",
+          "MicroStrategy",
+          "microstrategy.com",
+          "2023-07-28T00:00:00Z",
+          464,
+          8.35345,
+          8.4,
+          1234738,
+          "microstrategy",
+          "microstrategy",
+          "https://www.g2.com/products/microstrategy/reviews",
+          "MicroStrategy",
+          "MicroStrategy provides a high performance, scalable Business Intelligence platform delivering insight with interactive dashboards and superior analytics.",
+          "Software",
+          680992,
+          1266
+        ],
+        [
+          "17932068",
+          "https://www.lacework.com",
+          "Lacework",
+          "lacework.com",
+          "2023-07-28T00:00:00Z",
+          269,
+          8.82836,
+          8.8,
+          1231195,
+          "lacework",
+          "lacework",
+          "https://www.g2.com/products/lacework/reviews",
+          "Lacework",
+          "Lacework automates security and compliance across AWS, Azure, GCP, and private clouds, providing a comprehensive view of risks across cloud workloads and containers. Lacework’s unified cloud security platform provides unmatched visibility, automates intrusion detection, delivers one-click investigation, and simplifies cloud compliance.",
+          "Software",
+          631280,
+          1266
+        ],
+        [
+          "3033823",
+          "http://jumpcloud.com",
+          "JumpCloud",
+          "jumpcloud.com",
+          "2023-07-28T00:00:00Z",
+          1802,
+          9.08657,
+          9.1,
+          1231396,
+          "jumpcloud",
+          "jumpcloud",
+          "https://www.g2.com/products/jumpcloud/reviews",
+          "JumpCloud Inc.",
+          "The JumpCloud Directory Platform reimagines the directory as a complete platform for identity, access, and device management.",
+          "Software",
+          631811,
+          1266
+        ],
+        [
+          "3643",
+          "http://www.microstrategy.com",
+          "MicroStrategy",
+          "microstrategy.com",
+          "2023-07-28T00:00:00Z",
+          464,
+          8.35345,
+          8.4,
+          1234738,
+          "microstrategy",
+          "microstrategy",
+          "https://www.g2.com/products/microstrategy/reviews",
+          "MicroStrategy",
+          "MicroStrategy provides a high performance, scalable Business Intelligence platform delivering insight with interactive dashboards and superior analytics.",
+          "Software",
+          680992,
+          1266
+        ],
+        [
+          "3643",
+          "http://www.microstrategy.com",
+          "MicroStrategy",
+          "microstrategy.com",
+          "2023-07-27T00:00:00Z",
+          464,
+          8.35345,
+          8.4,
+          743350,
+          "microstrategy",
+          "microstrategy",
+          "https://www.g2.com/products/microstrategy/reviews",
+          "MicroStrategy",
+          "MicroStrategy provides a high performance, scalable Business Intelligence platform delivering insight with interactive dashboards and superior analytics.",
+          "Software",
+          680992,
+          1266
+        ],
+        [
+          "3643",
+          "http://www.microstrategy.com",
+          "MicroStrategy",
+          "microstrategy.com",
+          "2023-07-27T00:00:00Z",
+          464,
+          8.35345,
+          8.4,
+          743350,
+          "microstrategy",
+          "microstrategy",
+          "https://www.g2.com/products/microstrategy/reviews",
+          "MicroStrategy",
+          "MicroStrategy provides a high performance, scalable Business Intelligence platform delivering insight with interactive dashboards and superior analytics.",
+          "Software",
+          680992,
+          1266
+        ],
+        [
+          "17932068",
+          "https://www.lacework.com",
+          "Lacework",
+          "lacework.com",
+          "2023-07-27T00:00:00Z",
+          269,
+          8.82836,
+          8.8,
+          741662,
+          "lacework",
+          "lacework",
+          "https://www.g2.com/products/lacework/reviews",
+          "Lacework",
+          "Lacework automates security and compliance across AWS, Azure, GCP, and private clouds, providing a comprehensive view of risks across cloud workloads and containers. Lacework’s unified cloud security platform provides unmatched visibility, automates intrusion detection, delivers one-click investigation, and simplifies cloud compliance.",
+          "Software",
+          631280,
+          1266
+        ],
+        [
+          "3033823",
+          "http://jumpcloud.com",
+          "JumpCloud",
+          "jumpcloud.com",
+          "2023-07-27T00:00:00Z",
+          1802,
+          9.08657,
+          9.1,
+          741746,
+          "jumpcloud",
+          "jumpcloud",
+          "https://www.g2.com/products/jumpcloud/reviews",
+          "JumpCloud Inc.",
+          "The JumpCloud Directory Platform reimagines the directory as a complete platform for identity, access, and device management.",
+          "Software",
+          631811,
+          1266
+        ],
+        [
+          "17932068",
+          "https://www.lacework.com",
+          "Lacework",
+          "lacework.com",
+          "2023-07-04T00:00:00Z",
+          219,
+          8.78539,
+          8.8,
+          1148456,
+          "lacework",
+          "lacework",
+          "https://www.g2.com/products/lacework/reviews",
+          "Lacework",
+          "Lacework automates security and compliance across AWS, Azure, GCP, and private clouds, providing a comprehensive view of risks across cloud workloads and containers. Lacework’s unified cloud security platform provides unmatched visibility, automates intrusion detection, delivers one-click investigation, and simplifies cloud compliance.",
+          "Software",
+          631280,
+          1266
+        ],
+        [
+          "3643",
+          "http://www.microstrategy.com",
+          "MicroStrategy",
+          "microstrategy.com",
+          "2023-07-04T00:00:00Z",
+          463,
+          8.34989,
+          8.3,
+          1151999,
+          "microstrategy",
+          "microstrategy",
+          "https://www.g2.com/products/microstrategy/reviews",
+          "MicroStrategy",
+          "MicroStrategy provides a high performance, scalable Business Intelligence platform delivering insight with interactive dashboards and superior analytics.",
+          "Software",
+          680992,
+          1266
+        ]
+      ],
+      "is_trial_user": false
+    }
+    ```

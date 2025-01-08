@@ -1,0 +1,264 @@
+- **CUrl**
+    
+    ```bash
+    curl 'https://api.crustdata.com/data_lab/headcount_timeseries/' \
+      -H 'Accept: application/json, text/plain, */*' \
+      -H 'Accept-Language: en-US,en;q=0.9' \
+      -H 'Authorization: Token $auth_token' \
+      -H 'Content-Type: application/json' \
+      -H 'Origin: https://crustdata.com' \
+      -H 'Referer: https://crustdata.com' \
+      --data-raw '{
+        "filters": {
+            "op": "or",
+            "conditions": [
+                        {
+                            "column": "company_id",
+                            "type": "=",
+                            "value": 634995
+                        },
+                        {
+                            "column": "company_id",
+                            "type": "=",
+                            "value": 680992
+                        },
+                        {
+                            "column": "company_id",
+                            "type": "=",
+                            "value": 673947
+                        },
+                        {
+                            "column": "company_id",
+                            "type": "=",
+                            "value": 631811
+                        }
+            ]
+        },
+        "offset": 0,
+        "count": 100,
+        "sorts": []
+    }' \
+      --compressed
+    ```
+    
+- **Python**
+    
+    ```python
+    import requests
+    
+    headers = {
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Authorization': 'Token $auth_token',
+        'Content-Type': 'application/json',
+        'Origin': 'https://crustdata.com',
+        'Referer': 'https://crustdata.com',
+    }
+    
+    json_data = {
+        'filters': {
+            'op': 'and',
+            'conditions': [
+                {
+                    'op': 'or',
+                    'conditions': [
+                        {
+                            'column': 'company_id',
+                            'type': '=',
+                            'value': 634995,
+                        },
+                        {
+                            'column': 'company_id',
+                            'type': '=',
+                            'value': 680992,
+                        },
+                        {
+                            'column': 'company_id',
+                            'type': '=',
+                            'value': 673947,
+                        },
+                        {
+                            'column': 'company_id',
+                            'type': '=',
+                            'value': 631811,
+                        },
+                    ],
+                },
+            ],
+        },
+        'offset': 0,
+        'count': 100,
+        'sorts': [],
+    }
+    
+    response = requests.post('https://api.crustdata.com/data_lab/headcount_timeseries/', headers=headers, json=json_data)
+    ```
+    
+- **Response**
+    
+    [JSON Hero](https://jsonhero.io/j/bd2OKMSu8ZQ0/editor)
+    
+    ```json
+    {
+      "fields": [
+        {
+          "type": "foreign_key",
+          "api_name": "company_id",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_website",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "linkedin_id",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_website_domain",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "array",
+          "api_name": "headcount_timeseries",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "total_rows",
+          "hidden": true,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        }
+      ],
+      "rows": [
+        [
+          631280,
+          "https://www.lacework.com",
+          "17932068",
+          "lacework.com",
+          [
+            {
+              "date": "2021-08-01T00:00:00+00:00",
+              "employee_count": 643,
+              "follower_count": null
+            },
+            {
+              "date": "2021-08-02T00:00:00+00:00",
+              "employee_count": 643,
+              "follower_count": null
+            },
+            {
+              "date": "2021-08-09T00:00:00+00:00",
+              "employee_count": 643,
+              "follower_count": null
+            },
+            {
+              "date": "2021-08-16T00:00:00+00:00",
+              "employee_count": 643,
+              "follower_count": null
+            },
+            {
+              "date": "2021-08-23T00:00:00+00:00",
+              "employee_count": 643,
+              "follower_count": null
+            },
+            {
+              "date": "2021-08-30T00:00:00+00:00",
+              "employee_count": 643,
+              "follower_count": null
+            },
+            {
+              "date": "2021-09-01T00:00:00+00:00",
+              "employee_count": 687,
+              "follower_count": null
+            },
+            {
+              "date": "2021-09-06T00:00:00+00:00",
+              "employee_count": 687,
+              "follower_count": null
+            },
+            {
+              "date": "2021-09-13T00:00:00+00:00",
+              "employee_count": 687,
+              "follower_count": null
+            },
+            {
+              "date": "2021-09-20T00:00:00+00:00",
+              "employee_count": 687,
+              "follower_count": null
+            },
+            {
+              "date": "2021-09-27T00:00:00+00:00",
+              "employee_count": 687,
+              "follower_count": null
+            },
+            {
+              "date": "2021-10-01T00:00:00+00:00",
+              "employee_count": 737,
+              "follower_count": null
+            },
+            {
+              "date": "2021-10-04T00:00:00+00:00",
+              "employee_count": 737,
+              "follower_count": null
+            },
+            {
+              "date": "2021-10-11T00:00:00+00:00",
+              "employee_count": 737,
+              "follower_count": null
+            },
+            {
+              "date": "2021-10-18T00:00:00+00:00",
+              "employee_count": 737,
+              "follower_count": null
+            },
+            {
+              "date": "2023-09-01T00:00:00+00:00",
+              "employee_count": 955,
+              "follower_count": 39072
+            },
+            ...
+          ]
+        ]
+      ]
+      "is_trial_user": false
+    }
+    ```

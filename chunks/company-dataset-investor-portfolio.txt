@@ -1,0 +1,27 @@
+- **cURL**
+    
+    **Example 1: query by investor uuid** 
+    
+    Note: uuid for an investor can be retrieved from `/screener/company` response. It is available in `funding_and_investment.crunchbase_investors_info_list[*].uuid` field 
+    
+    ```bash
+    curl 'https://api.crustdata.com/data_lab/investor_portfolio?investor_uuid=ce91bad7-b6d8-e56e-0f45-4763c6c5ca29' \
+      --header 'Accept: application/json, text/plain, */*' \
+      --header 'Accept-Language: en-US,en;q=0.9' \
+      --header 'Authorization: Token $auth_token'
+    ```
+    
+    **Example 2: query by investor name** 
+    
+    Note: uuid for an investor can be retrieved from `/screener/company` response. It is available in `funding_and_investment.crunchbase_investors_info_list[*].uuid` field 
+    
+    ```bash
+    curl 'https://api.crustdata.com/data_lab/investor_portfolio?investor_name=Sequoia Capital' \
+      --header 'Accept: application/json, text/plain, */*' \
+      --header 'Accept-Language: en-US,en;q=0.9' \
+      --header 'Authorization: Token $auth_token'
+    ```
+    
+- **Result**
+    
+    Full sample: https://jsonhero.io/j/hSEHVFgv68pz

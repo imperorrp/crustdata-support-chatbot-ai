@@ -1,0 +1,415 @@
+- **CUrl**
+    
+    ```bash
+    curl --request POST \
+      --url https://api.crustdata.com/data_lab/linkedin_headcount_by_facet/Table/ \
+      --header 'Accept: application/json, text/plain, */*' \
+      --header 'Accept-Language: en-US,en;q=0.9' \
+      --header 'Authorization: Token $token' \
+      --header 'Content-Type: application/json' \
+      --header 'Origin: https://crustdata.com' \
+      --data '{
+        "tickers": [],
+        "dataset": {
+          "name": "linkedin_headcount_by_facet",
+          "id": "linkedinheadcountbyfacet"
+        },
+        "filters": {
+          "op": "and",
+          "conditions": [
+                {"column": "company_id", "type": "in", "value": [680992, 673947, 631280], "allow_null": false}
+          ]
+        },
+        "groups": [],
+        "aggregations": [],
+        "functions": [],
+        "offset": 0,
+        "count": 100,
+        "sorts": []
+      }'
+    ```
+    
+- **Result**
+    
+    [JSON Hero](https://jsonhero.io/j/SC3GAjKPzkDw/editor)
+    
+    ```bash
+    {
+      "fields": [
+        {
+          "type": "string",
+          "api_name": "linkedin_id",
+          "hidden": true,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_website",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_name",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_website_domain",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "facet_linkedin_employee_count",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "date",
+          "api_name": "as_of_date",
+          "hidden": false,
+          "options": [
+            "-default_sort"
+          ],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "dataset_row_id",
+          "hidden": true,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": null,
+          "company_profile_name": null,
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "linkedin_headcount_facet_type",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "linkedin_headcount_facet_value",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "linkedin_headcount_facet_name",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "linkedin_profile_url",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_website",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "string",
+          "api_name": "company_website_domain",
+          "hidden": false,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "company_id",
+          "hidden": true,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": null,
+          "company_profile_name": null,
+          "geocode": false
+        },
+        {
+          "type": "number",
+          "api_name": "total_rows",
+          "hidden": true,
+          "options": [],
+          "summary": "",
+          "local_metric": false,
+          "display_name": "",
+          "company_profile_name": "",
+          "geocode": false
+        }
+      ],
+      "rows": [
+        [
+          "35625249",
+          "https://www.sketch.com/",
+          "Sketch",
+          "sketch.com",
+          6,
+          "2024-02-28T00:00:00Z",
+          41260836,
+          "CURRENT_FUNCTION",
+          "5",
+          "Community and Social Services",
+          "https://www.linkedin.com/company/sketchbv",
+          "https://sketch.com/",
+          "sketch.com",
+          673947,
+          1411
+        ],
+        [
+          "35625249",
+          "https://www.sketch.com/",
+          "Sketch",
+          "sketch.com",
+          13,
+          "2024-02-28T00:00:00Z",
+          41260818,
+          "GEO_REGION",
+          "106057199",
+          "Brazil",
+          "https://www.linkedin.com/company/sketchbv",
+          "https://sketch.com/",
+          "sketch.com",
+          673947,
+          1411
+        ],
+        [
+          "35625249",
+          "https://www.sketch.com/",
+          "Sketch",
+          "sketch.com",
+          5,
+          "2024-02-28T00:00:00Z",
+          41260838,
+          "CURRENT_FUNCTION",
+          "15",
+          "Marketing",
+          "https://www.linkedin.com/company/sketchbv",
+          "https://sketch.com/",
+          "sketch.com",
+          673947,
+          1411
+        ],
+        [
+          "35625249",
+          "https://www.sketch.com/",
+          "Sketch",
+          "sketch.com",
+          4,
+          "2024-02-28T00:00:00Z",
+          41260841,
+          "CURRENT_FUNCTION",
+          "14",
+          "Legal",
+          "https://www.linkedin.com/company/sketchbv",
+          "https://sketch.com/",
+          "sketch.com",
+          673947,
+          1411
+        ],
+        [
+          "35625249",
+          "https://www.sketch.com/",
+          "Sketch",
+          "sketch.com",
+          10,
+          "2024-02-28T00:00:00Z",
+          41260824,
+          "GEO_REGION",
+          "90009790",
+          "Greater Madrid Metropolitan Area",
+          "https://www.linkedin.com/company/sketchbv",
+          "https://sketch.com/",
+          "sketch.com",
+          673947,
+          1411
+        ],
+        [
+          "35625249",
+          "https://www.sketch.com/",
+          "Sketch",
+          "sketch.com",
+          8,
+          "2024-02-28T00:00:00Z",
+          41260826,
+          "GEO_REGION",
+          "105088894",
+          "Barcelona",
+          "https://www.linkedin.com/company/sketchbv",
+          "https://sketch.com/",
+          "sketch.com",
+          673947,
+          1411
+        ],
+        [
+          "35625249",
+          "https://www.sketch.com/",
+          "Sketch",
+          "sketch.com",
+          5,
+          "2024-02-28T00:00:00Z",
+          41260839,
+          "CURRENT_FUNCTION",
+          "7",
+          "Education",
+          "https://www.linkedin.com/company/sketchbv",
+          "https://sketch.com/",
+          "sketch.com",
+          673947,
+          1411
+        ],
+        [
+          "17932068",
+          "https://www.lacework.com",
+          "Lacework",
+          "lacework.com",
+          285,
+          "2023-12-12T00:00:00Z",
+          37662388,
+          "GEO_REGION",
+          "90000084",
+          "San Francisco Bay Area",
+          "https://www.linkedin.com/company/lacework",
+          "https://www.lacework.com/",
+          "lacework.com",
+          631280,
+          1411
+        ],
+        [
+          "17932068",
+          "https://www.lacework.com",
+          "Lacework",
+          "lacework.com",
+          17,
+          "2023-12-12T00:00:00Z",
+          37662413,
+          "CURRENT_FUNCTION",
+          "20",
+          "Program and Project Management",
+          "https://www.linkedin.com/company/lacework",
+          "https://www.lacework.com/",
+          "lacework.com",
+          631280,
+          1411
+        ],
+        [
+          "17932068",
+          "https://www.lacework.com",
+          "Lacework",
+          "lacework.com",
+          75,
+          "2023-12-12T00:00:00Z",
+          37662389,
+          "GEO_REGION",
+          "101165590",
+          "United Kingdom",
+          "https://www.linkedin.com/company/lacework",
+          "https://www.lacework.com/",
+          "lacework.com",
+          631280,
+          1411
+        ],
+        [
+          "17932068",
+          "https://www.lacework.com",
+          "Lacework",
+          "lacework.com",
+          97,
+          "2023-12-12T00:00:00Z",
+          37662403,
+          "CURRENT_FUNCTION",
+          "13",
+          "Information Technology",
+          "https://www.linkedin.com/company/lacework",
+          "https://www.lacework.com/",
+          "lacework.com",
+          631280,
+          1411
+        ],
+        [
+          "17932068",
+          "https://www.lacework.com",
+          "Lacework",
+          "lacework.com",
+          61,
+          "2023-12-12T00:00:00Z",
+          37662390,
+          "GEO_REGION",
+          "102277331",
+          "San Francisco, CA",
+          "https://www.linkedin.com/company/lacework",
+          "https://www.lacework.com/",
+          "lacework.com",
+          631280,
+          1411
+        ]
+      ],
+      "is_trial_user": false
+    }
+    ```

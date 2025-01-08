@@ -17,7 +17,7 @@ import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-import { geminiProModel } from "@/ai";
+import { geminiProModel, geminiFlashModel } from "@/ai";
 import {
   generateReservationPrice,
   generateSampleFlightSearchResults,
@@ -38,8 +38,12 @@ export const runtime = "edge";
 
 
 // Helper functions for document and message formatting
-const combineDocumentsFn = (docs: Document[]) => {
-  const serializedDocs = docs.map((doc) => doc.pageContent);
+const combineDocumentsFn = (docs: Document[]) => { //combines both the content and metadata of the documents 
+  const serializedDocs = docs.map((doc) => {
+    const content = doc.pageContent;
+    const metadata = JSON.stringify(doc.metadata);
+    return `${content}\nMetadata: ${metadata}`;
+  });
   return serializedDocs.join("\n\n");
 };
 
@@ -172,10 +176,11 @@ export async function POST(req: NextRequest) {
     //const chatHistory = formatVercelMessages(previousMessages);
 
     console.log("Relevant documents retrieved.");
+    console.log(relevantDocs);
 
     // Use streamText with the retrieved context
     const result = await streamText({ 
-      model: geminiProModel,
+      model: geminiFlashModel, //geminiProModel, (the gemini flash model has much larger context window, best suited for this API doc system)
       messages: convertToCoreMessages(messages), //message history plus current message
       system: `You are a helpful Crustdata API support assistant. You help users understand and use Crustdata's APIs effectively and concisely.
       

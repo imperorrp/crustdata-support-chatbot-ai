@@ -33,7 +33,7 @@ export const Overview2 = () => {
           <span>+</span>
           <MessageIcon />
         </p>
-        <p>
+        <p className="font-bold text-center text-2xl dark:text-zinc-50">
           Welcome to the {" "}
           <Link 
             className="text-blue-500 dark:text-blue-400"

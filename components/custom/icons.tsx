@@ -17,11 +17,11 @@ export const BotIcon = () => {
   );
 };
 
-export const UserIcon = () => {
+export const UserIcon = ({ size = 16 }: { size?: number }) => {
   return (
     <svg
       data-testid="geist-icon"
-      height="16"
+      height={size}
       strokeLinejoin="round"
       viewBox="0 0 16 16"
       width="16"

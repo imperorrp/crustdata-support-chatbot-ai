@@ -32,7 +32,7 @@ export const Overview = () => {
           <span>+</span>
           <MessageIcon />
         </p>
-        <p>
+        <p className="font-bold text-center text-2xl dark:text-zinc-50">
           Welcome to the {" "}
           <Link 
             className="text-blue-500 dark:text-blue-400"
@@ -41,7 +41,8 @@ export const Overview = () => {
           >
           Crustdata 
           </Link>
-          {" "} API Support Bot! 
+          {" "}
+          API Support Bot! 
         </p>
         <p>
           Ask any questions about the Crustdata API below. 

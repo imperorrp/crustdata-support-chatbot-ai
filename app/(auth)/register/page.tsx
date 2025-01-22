@@ -59,16 +59,32 @@ export default function Page() {
           </div>
           <AuthForm action={handleSubmit} defaultEmail={email}>
             <SubmitButton>Sign Up</SubmitButton>
-            <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
-              {"Already have an account? "}
-              <Link
-                href="/login"
-                className="font-semibold text-gray-800 hover:underline dark:text-zinc-200"
+            <div className="flex flex-col gap-4 items-center mt-4">
+              <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
+                {"Already have an account? "}
+                <Link
+                  href="/login"
+                  className="font-semibold text-gray-800 hover:underline dark:text-zinc-200"
+                >
+                  Sign in
+                </Link>
+                {" instead."}
+              </p>
+              <div className="relative w-full">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-gray-300" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">Or</span>
+                </div>
+              </div>
+              <Link 
+                href="/?anonymous=true"
+                className="text-sm text-gray-500 hover:text-gray-800 hover:underline dark:text-zinc-400 dark:hover:text-zinc-200"
               >
-                Sign in
+                Continue without an account
               </Link>
-              {" instead."}
-            </p>
+            </div>
           </AuthForm>
         </div>
       </div>

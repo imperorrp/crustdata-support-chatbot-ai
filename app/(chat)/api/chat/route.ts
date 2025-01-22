@@ -122,10 +122,13 @@ export async function POST(req: NextRequest) {
 
     const session = await auth();
 
-    if (!session) {
+    /*if (!session) {
       return new Response("Unauthorized", { status: 401 });
     }
-    console.log("Session authenticated");
+    */
+    if (session) {
+      console.log("Session authenticated");
+    } 
 
     const coreMessages = convertToCoreMessages(messages).filter(
       (message) => message.content.length > 0,
@@ -251,7 +254,7 @@ export async function POST(req: NextRequest) {
       If you need more information from the user to solve their problem, ask them a relevant follow-up question.
       `,
       onFinish: async ({ responseMessages }) => {
-        if (session.user && session.user.id) {
+        if (session && session.user && session.user.id) { //only save chat if session is authenticated
           try {
             await saveChat({
               id,

@@ -13,9 +13,11 @@ import { Overview } from "./overview";
 export function Chat({
   id,
   initialMessages,
+  isAnonymous = false,
 }: {
   id: string;
   initialMessages: Array<Message>;
+  isAnonymous?: boolean;
 }) {
   const { messages, handleSubmit, input, setInput, append, isLoading, stop } =
     useChat({
@@ -24,7 +26,9 @@ export function Chat({
       initialMessages,
       maxSteps: 10,
       onFinish: () => {
-        window.history.replaceState({}, "", `/chat/${id}`);
+        if (!isAnonymous) {
+          window.history.replaceState({}, "", `/chat/${id}`);
+        }
       },
     });
 
@@ -41,7 +45,6 @@ export function Chat({
           className="flex flex-col gap-4 h-full w-dvw items-center overflow-y-scroll"
         >
           {messages.length === 0 && <Overview />}
-
           {messages.map((message) => (
             <PreviewMessage
               key={message.id}

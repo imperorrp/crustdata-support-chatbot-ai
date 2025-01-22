@@ -1,7 +1,12 @@
 import { Chat } from "@/components/custom/chat";
 import { generateUUID } from "@/lib/utils";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { anonymous?: string };
+}) {
   const id = generateUUID();
-  return <Chat key={id} id={id} initialMessages={[]} />;
+  const isAnonymous = searchParams.anonymous === "true";
+  return <Chat key={id} id={id} initialMessages={[]} isAnonymous={isAnonymous} />;
 }

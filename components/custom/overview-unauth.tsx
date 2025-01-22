@@ -36,7 +36,7 @@ export const Overview2 = () => {
         <p className="font-bold text-center text-2xl dark:text-zinc-50">
           Welcome to the {" "}
           <Link 
-            className="text-blue-500 dark:text-blue-400"
+            className="text-blue-500 dark:text-blue-400 hover:underline"
             href="https://crustdata.com/"
             target="_blank"
           >
@@ -44,9 +44,6 @@ export const Overview2 = () => {
           </Link>
           {" "}
           API Support Bot! 
-        </p>
-        <p>
-          Please sign up/log in to store your support chats and view support history.
         </p>
         <p>          
           This customer support bot is powered by the Google Gemini
@@ -56,13 +53,16 @@ export const Overview2 = () => {
           {" "}
           Click here to view the Crustdata API{" "}
           <Link
-            className="text-blue-500 dark:text-blue-400"
+            className="text-blue-500 dark:text-blue-400 hover:underline"
             href="https://crustdata.notion.site/Crustdata-Discovery-And-Enrichment-API-c66d5236e8ea40df8af114f6d447ab48#3315bbdfa0054a2aa440e98bdec3ff90"
             target="_blank"
           >
             docs
           </Link>
           .
+        </p>
+        <p>
+          Please sign up/log in to store your support chats and view support chat history. Or continue without an account. 
         </p>
       </div>
     </motion.div>

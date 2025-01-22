@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+//import { useSearchParams } from "next/navigation"; // Import useSearchParams
 
 import { auth, signOut } from "@/app/(auth)/auth";
 
@@ -33,7 +34,7 @@ export const Navbar = async () => {
               <SlashIcon size={16} />
             </div>
             <div className="text-sm dark:text-zinc-300 truncate w-28 md:w-fit">
-              Crustdata API Support Chatbot
+              <Link className="hover:underline" href="/">Crustdata API Support Chatbot</Link>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ export const Overview2 = () => {
       exit={{ opacity: 0, scale: 0.98 }}
       transition={{ delay: 0.5 }}
     >
-      <div className="h-full border-none bg-muted/50 rounded-2xl p-6 flex flex-col gap-4 text-zinc-500 text-sm dark:text-zinc-400 dark:border-zinc-700">
+      <div className="h-full border-none bg-muted/50 rounded-2xl p-6 flex flex-col  gap-4 text-zinc-500 text-sm dark:text-zinc-400 dark:border-zinc-700">
         <p className="flex flex-row justify-center gap-4 items-center text-zinc-900 dark:text-zinc-50 py-6">
           <Image
             src="/images/crustdata_png.png"
@@ -64,7 +64,20 @@ export const Overview2 = () => {
         <p>
           Please sign up/log in to store your support chats and view support chat history. Or continue without an account. 
         </p>
+        <div className="flex flex-row align-center justify-center">
+          <p className="text-sm text-center text-gray-500 dark:text-zinc-400 mt-4 bg-gray-200 dark:bg-gray-800 rounded-full px-3 py-1">
+            By{" "}
+            <Link
+              className="text-blue-500 dark:text-blue-400 hover:underline "
+              href="https://github.com/imperorrp"
+              target="_blank"
+            >
+              Ratish
+            </Link>
+          </p>
+        </div>
       </div>
+      
     </motion.div>
   );
 };
